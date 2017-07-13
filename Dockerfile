@@ -25,5 +25,5 @@ RUN apk add \
 EXPOSE 80
 EXPOSE 443
 
-# House cleaning
+# Clear cache
 RUN rm -rf /var/cache/apk/*
