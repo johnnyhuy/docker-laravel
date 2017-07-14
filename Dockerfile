@@ -23,7 +23,7 @@ RUN apk add \
 RUN rm -rf /var/cache/apk/*
 
 # Start apache service in foreground
-CMD ["apachectl", "-DFOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # Open web ports
 EXPOSE 80 443
