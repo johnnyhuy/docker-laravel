@@ -1,18 +1,13 @@
 FROM alpine:latest
 MAINTAINER Johnny Huynh <johnnyhuynhdev@gmail.com>
 
-# Copy root folder of OS to project directory root/
-COPY root/. /
-
 # Update existing packages
 RUN apk update && apk upgrade
-
-# Install openrc for rc service
-RUN apk add openrc --no-cache
 
 # Install apache2 and latest PHP
 RUN apk add \
     apache2 \
+    apache2-utils \
     php7 \
     php7-apache2 \
     php7-openssl \
@@ -20,10 +15,15 @@ RUN apk add \
     php7-phar \
     php7-pdo \
     php7-tokenizer \
-    php7-mysqli
-
-EXPOSE 80
-EXPOSE 443
+    php7-mysqli && \
+    mkdir -p /run/apache2 && \
+    sed -i 's/^#ServerName.*/ServerName localhost:80/' /etc/apache2/httpd.conf
 
 # Clear cache
 RUN rm -rf /var/cache/apk/*
+
+# Start apache service in foreground
+CMD ["apachectl", "-DFOREGROUND"]
+
+# Open web ports
+EXPOSE 80 443
