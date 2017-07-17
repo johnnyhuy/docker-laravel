@@ -1,0 +1,18 @@
+version: "3"
+services:
+    web:
+        build: ./
+        image: johnnyhuy/laravel:latest
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/laravel
+        links:
+            - "db:database"
+    db:
+        image: mysql
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: "YOUR ROOT PASSWORD HERE"
+            MYSQL_DATABASE: "YOU MYSQL DATABASE NAME HERE (OPTIONAL)"
