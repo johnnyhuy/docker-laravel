@@ -9,8 +9,9 @@ RUN \
     echo -e "\nInstalling Core utilities..." && \
     apk add \
         curl \
-        unzip  && \
+        unzip
 
+RUN \
     # PHP 7
     echo -e "\nInstalling PHP 7..." && \
     apk add \
@@ -29,45 +30,26 @@ RUN \
         php7-xml \
         php7-xmlwriter \
         php7-zip \
-        php7-mysqli && \
+        php7-mysqli
 
-    # PHP Composer
-    curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
-    echo -e "\nInstalling Composer..." && \
-    php /tmp/composer-setup.php --install-dir=bin --filename=composer && \
-    echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' > ~/.bashrc && \
-    source ~/.bashrc && \
-
+RUN \
     # Apache2
     apk add \
         apache2 \
         apache2-utils && \
     mkdir -p /run/apache2 && \
     sed -i 's$^#ServerName.*$ServerName localhost:80$' /etc/apache2/httpd.conf && \
-    sed -i 's$/var/www/localhost/htdocs$/var/www/laravel/public$' /etc/apache2/httpd.conf && \
-
-    # NodeJS/npm
-    echo -e "\nInstalling NodeJS & npm..." && \
-    apk add \
-        nodejs \
-        nodejs-npm && \
-    echo -e "\nUpdating npm, this may take a few minutes..." && \
-    npm i -g npm
-
-# Clear cache
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf /tmp/*
+    sed -i 's$/var/www/localhost/htdocs$/var/www/laravel/public$' /etc/apache2/httpd.conf
 
 # Add laravel project root (make sure Dockerfile is in Laravel project root folder)
 ADD . /var/www/laravel
 WORKDIR /var/www/laravel
 
-# Install project dependancies
+# Clear cache
 RUN \
-    echo -e "\nInstalling project dependancies..." && \
-    cd /var/www/laravel && \
-    composer install && \
-    npm install
+    echo -e "\nCleaning up temporary files..." && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
 
 # Start apache service in foreground
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]

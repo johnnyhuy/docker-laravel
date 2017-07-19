@@ -1,0 +1,20 @@
+version: "3"
+services:
+    web:
+        build: ./
+        environment:
+            APP_ENV: production
+        image: johnnyhuy/laravel:latest
+        links:
+            - "db:database"
+        ports:
+            - "80:80"
+        restart: "yes"
+        env_file: ".env"
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "YOUR ROOT PASSWORD HERE"
+            MYSQL_DATABASE: "YOU MYSQL DATABASE NAME HERE (OPTIONAL)"
+        ports:
+            - 3306:3306
