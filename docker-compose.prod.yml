@@ -2,19 +2,39 @@ version: "3"
 services:
     web:
         build: ./
+        env_file: ".env"
         environment:
             APP_ENV: production
+            REDIS_HOST: cache
         image: johnnyhuy/laravel:latest
         links:
             - "db:database"
         ports:
             - "80:80"
-        restart: "yes"
-        env_file: ".env"
+        restart: "no"
+        volumes:
+            - ./:/var/www/laravel
     db:
         image: mysql
         environment:
-            MYSQL_ROOT_PASSWORD: "YOUR ROOT PASSWORD HERE"
-            MYSQL_DATABASE: "YOU MYSQL DATABASE NAME HERE (OPTIONAL)"
+            MYSQL_ROOT_PASSWORD: "secret"
+            MYSQL_DATABASE: "homestead"
+        restart: "no"
         ports:
-            - 3306:3306
+            - 3307:3306
+    cache:
+        image: redis:alpine
+    composer:
+        command: [sh, -c, "composer install --no-dev"]
+        image: composer
+        restart: "no"
+        volumes:
+            - ./:/var/www/laravel
+        working_dir: /var/www/laravel
+    node:
+        command: [sh, -c, "npm install && npm run prod"]
+        image: node:alpine
+        restart: "no"
+        volumes:
+            - ./:/var/www/laravel
+        working_dir: /var/www/laravel
