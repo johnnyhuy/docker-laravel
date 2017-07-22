@@ -6,9 +6,7 @@ The container includes the following packages installed on Alpine:
 
 - Core utilities: curl, unzip
 - PHP 7.x from apk services
-- PHP extensions: apache2, openssl, mbstring, phar, pdo, tokenizer, mysqli, mysqlnd...
-- PHP Composer
-- NodeJS & npm
+- PHP extensions required for the Laravel project
 
 # Usage
 ## Quick (no database)
@@ -87,6 +85,3 @@ Run the container.
 ```
 docker-compose up -d
 ```
-
-
-**Sidenote:** This is a work in progress.
