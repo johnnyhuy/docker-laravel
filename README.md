@@ -1,15 +1,15 @@
-# Alpine powered container for Laravel projects
+## Alpine powered container for Laravel projects
 This is a small project I started to effciently start Laravel projects with reduced dev ops delays.
 
-# What does it include?
+## What does it include?
 The container includes the following packages installed on Alpine:
 
 - Core utilities: curl, unzip
 - PHP 7.x from apk services
 - PHP extensions required for the Laravel project
 
-# Usage
-## Quick (no database)
+## Usage
+### Quick (no database)
 This is where volumes are used to interact with the container project file. Run the following command to link your project folder.
 
 Run the docker command to pull the image from the Docker repo.
@@ -23,7 +23,7 @@ docker run -p 80:80 -v $PWD:/var/www/laravel -d johnnyhuy/laravel
 ```
 Note: $PWD is the current directory.
 
-## Recommended for development (includes MySQL driver)
+### Recommended for development (includes MySQL driver)
 We'll be using docker compose to create a config file to include the MySQL image and link it to the johnnyhuy/laravel image. Create a **docker-compose.yml** in your project folder as shown.
 
 ```
