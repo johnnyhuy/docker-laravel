@@ -37,7 +37,7 @@ RUN \
     # Apache2
     apk add \
         apache2 \
-        apache2-utils && \
+        apache2-utils \
         apache2-ssl && \
     mkdir -p /run/apache2 && \
     mkdir -p /var/www/laravel/public && \
