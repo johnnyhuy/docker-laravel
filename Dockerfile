@@ -20,6 +20,7 @@ RUN \
         php7-json \
         php7-apache2 \
         php7-ctype \
+        php7-curl \
         php7-session \
         php7-dom \
         php7-openssl \
@@ -38,7 +39,9 @@ RUN \
         apache2 \
         apache2-utils && \
     mkdir -p /run/apache2 && \
-    sed -i 's$^#ServerName.*$ServerName localhost:80$' /etc/apache2/httpd.conf && \
+    mkdir -p /var/www/laravel/public && \
+    sed -i 's$^#ServerName.*$ServerName localhost$' /etc/apache2/httpd.conf && \
+    sed -i 's$#LoadModule rewrite_module modules/mod_rewrite.so$LoadModule rewrite_module modules/mod_rewrite.so$' /etc/apache2/httpd.conf && \
     sed -i 's$/var/www/localhost/htdocs$/var/www/laravel/public$' /etc/apache2/httpd.conf
 
 # Add laravel project root (make sure Dockerfile is in Laravel project root folder)
@@ -52,7 +55,7 @@ RUN \
     rm -rf /tmp/*
 
 # Start apache service in foreground
-ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+#ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # Open web ports
 EXPOSE 80 443
