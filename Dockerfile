@@ -56,7 +56,7 @@ RUN \
     rm -rf /tmp/*
 
 # Start apache service in foreground
-#ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # Open web ports
 EXPOSE 80 443
