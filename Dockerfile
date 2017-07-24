@@ -42,6 +42,7 @@ RUN \
     mkdir -p /var/www/laravel/public && \
     sed -i 's$^#ServerName.*$ServerName localhost$' /etc/apache2/httpd.conf && \
     sed -i 's$#LoadModule rewrite_module modules/mod_rewrite.so$LoadModule rewrite_module modules/mod_rewrite.so$' /etc/apache2/httpd.conf && \
+    sed -i 's$AllowOverride None$AllowOverride All$g' /etc/apache2/httpd.conf && \
     sed -i 's$/var/www/localhost/htdocs$/var/www/laravel/public$' /etc/apache2/httpd.conf
 
 # Add laravel project root (make sure Dockerfile is in Laravel project root folder)
