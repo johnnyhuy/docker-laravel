@@ -38,3 +38,6 @@ services:
         volumes:
             - ./:/var/www/laravel
         working_dir: /var/www/laravel
+    certbot:
+        image: certbot/certbot
+        restart: "no"

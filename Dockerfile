@@ -56,8 +56,11 @@ RUN \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
-# Start apache service in foreground
-ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+# Start apache service
+CMD "apachectl"
+
+# Allow bash entrypoint
+ENTRYPOINT ["sh", "-c"]
 
 # Open web ports
 EXPOSE 80 443
