@@ -31,7 +31,8 @@ RUN \
         php7-xml \
         php7-xmlwriter \
         php7-zip \
-        php7-mysqli
+        php7-mysqli \
+        php7-pdo_mysql
 
 RUN \
     # Apache2
