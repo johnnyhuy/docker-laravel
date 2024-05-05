@@ -5,7 +5,6 @@ metadata:
   title: Docker Laravel
   description: Docker container running Laravel PHP framework
   tags:
-    - laravel
     - php
     - docker
 spec:
