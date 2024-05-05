@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: docker-laravel
+  title: Docker Laravel
+  description: Docker container running Laravel PHP framework
+  tags:
+    - laravel
+    - php
+    - docker
+spec:
+  type: library
+  lifecycle: experimental
+  owner: johnnyhuy
